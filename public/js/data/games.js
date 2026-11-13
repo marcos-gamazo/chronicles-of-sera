@@ -1,0 +1,113 @@
+// Juegos: etiquetas, fichas en orden cronológico y orden de lanzamiento.
+import { L } from "../l.js";
+
+export const GAME_LABELS = {
+  eday: "E-Day", judg: "Judgment", tact: "Tactics",
+  g1: "Gears 1", g2: "Gears 2", g3: "Gears 3", g4: "Gears 4", g5: "Gears 5",
+  hive: "Hivebusters", nov: L("Novelas/cómics", "Novels/comics"),
+};
+
+/** Fichas en orden cronológico interno. */
+export const GAMES = [
+  {
+    k: "eday", n: "Gears of War: E-Day", rel: 2026, set: "0 AE", c: "#e0672a", num: "0",
+    plot: L("Precuela situada 14 años antes del primer juego. Marcus y Dom están en Kalona para homenajear a los caídos de Aspho Fields cuando la tierra tiembla y emergen los Locust. Con Mags Carter y el cadete Lucas Reyes forman Bravo a las órdenes de la capitana Grey. Mientras resisten en la ciudad, descubren que el coronel Trench antepone el rescate de una científica y de un proyecto secreto a la vida de los civiles. Al final escapan por mar en el buque Resolute.",
+            "A prequel set 14 years before the first game. Marcus and Dom are in Kalona to honour the fallen of Aspho Fields when the ground shakes and the Locust emerge. With Mags Carter and cadet Lucas Reyes they form Bravo under Captain Grey. Holding out in the city, they discover that Colonel Trench puts the extraction of a scientist and a secret project ahead of civilian lives. In the end they escape by sea aboard the Resolute."),
+    key: [L("Nace la hermandad entre Marcus y Dom.", "The brotherhood between Marcus and Dom begins."),
+          L("Aparece por primera vez la bayoneta-motosierra del Lancer, inspirada en Tai Kaliso.", "The Lancer's chainsaw bayonet appears for the first time, inspired by Tai Kaliso."),
+          L("Los Locust escuchan las comunicaciones de la COG.", "The Locust are listening in on COG communications."),
+          L("Hay un misil de Masa Ligera secreto en la refinería de Timgad.", "A secret Lightmass missile is hidden at the Timgad refinery."),
+          L("Marcus impide que Dom se sacrifique y mata a Vraahk.", "Marcus stops Dom from sacrificing himself and kills Vraahk.")],
+    who: ["marcus", "dom", "mags", "lucas", "anya"],
+    links: L("Muestra en directo la muerte de los hijos de Dom y el origen de su búsqueda de María (G1–G2). El proyecto de Masa Ligera conecta con la bomba de Gears 1.",
+             "Shows first-hand the deaths of Dom's children and the start of his search for Maria (G1–G2). The Lightmass project connects to the bomb in Gears 1."),
+  },
+  {
+    k: "judg", n: "Gears of War: Judgment", rel: 2013, set: "0 AE", c: "#6f8fa8", num: "J",
+    plot: L("La Escuadra Kilo (Baird, Cole, Sofia Hendrik y el gorasni Paduk) está siendo juzgada por el coronel Loomis. Cada miembro cuenta su versión de la defensa de Halvo Bay contra el general Karn, seis semanas después del Día-E. Baird usó sin permiso un misil de Masa Ligera, y con él salvó la ciudad. El epílogo, Aftermath, ocurre durante Gears 3.",
+            "Kilo Squad (Baird, Cole, Sofia Hendrik and the Gorasni Paduk) is on trial before Colonel Loomis. Each member tells their side of the defence of Halvo Bay against General Karn, six weeks after E-Day. Baird used a Lightmass missile without permission, and it saved the city. The epilogue, Aftermath, takes place during Gears 3."),
+    key: [L("Narración en forma de testimonios de un juicio.", "Told as testimony at a trial."),
+          L("Se ve por qué Baird desconfía de los mandos.", "Shows why Baird distrusts command."),
+          L("Muere el general Karn.", "General Karn dies.")],
+    who: ["baird", "cole", "paduk", "karn"],
+    links: L("Explica cómo llegaron Baird y Cole a Delta. Aftermath enlaza con la búsqueda de refuerzos de Gears 3.",
+             "Explains how Baird and Cole ended up in Delta. Aftermath ties into the search for reinforcements in Gears 3."),
+  },
+  {
+    k: "tact", n: "Gears Tactics", rel: 2020, set: "1 AE", c: "#a8946f", num: "T",
+    plot: L("Tras los ataques del Martillo del Alba, el sargento Gabe Diaz recibe la orden de dar caza a Ukkon, el científico Locust que fabrica monstruos. Con Sid Redburn descubre la verdad de New Hope: los Locust nacieron de niños humanos. Rescata a Reyna, que mata a Ukkon. Gabe pierde la fe en la COG.",
+            "After the Hammer of Dawn strikes, Sergeant Gabe Diaz is ordered to hunt down Ukkon, the Locust scientist who breeds monsters. With Sid Redburn he uncovers the truth about New Hope: the Locust were born from human children. He rescues Reyna, who kills Ukkon. Gabe loses his faith in the COG."),
+    key: [L("Primera revelación del origen humano de los Locust.", "First reveal of the Locust's human origin."),
+          L("Gabe y Reyna se conocen: son los futuros padres de Kait.", "Gabe and Reyna meet: they are Kait's future parents."),
+          L("Se muestran los ataques del Martillo desde dentro.", "The Hammer strikes are shown from the inside.")],
+    who: ["gabe", "sid", "reyna", "ukkon"],
+    links: L("Es el origen de los Outsiders (Gears 4) y una pieza clave del misterio de Kait (Gears 5).",
+             "The origin of the Outsiders (Gears 4) and a key piece of Kait's mystery (Gears 5)."),
+  },
+  {
+    k: "g1", n: "Gears of War", rel: 2006, set: "14 AE", c: "#c4161c", num: "1",
+    plot: L("Catorce años después del Día-E, la humanidad resiste en la meseta de Jacinto. Dom saca a Marcus de la cárcel y Delta recibe la misión de cartografiar los túneles con un Resonador para lanzar la bomba de Masa Ligera. Tras perder a Kim y a Anthony Carmine, Marcus toma el mando, recupera los datos de su padre y monta la bomba en un tren. Allí mata a RAAM.",
+            "Fourteen years after E-Day, humanity holds out on the Jacinto Plateau. Dom breaks Marcus out of prison and Delta is sent to map the tunnels with a Resonator so the Lightmass Bomb can be deployed. After losing Kim and Anthony Carmine, Marcus takes command, recovers his father's data and loads the bomb onto a train. There he kills RAAM."),
+    key: [L("Marcus sale de la Prisión de Máxima Seguridad.", "Marcus gets out of the Maximum Security Prison."),
+          L("Mueren Kim y Anthony Carmine.", "Kim and Anthony Carmine die."),
+          L("El Resonador y los datos de Adam Fenix.", "The Resonator and Adam Fenix's data."),
+          L("Duelo con RAAM en el tren.", "Showdown with RAAM on the train.")],
+    who: ["marcus", "dom", "baird", "cole", "kim", "anthony", "raam", "hoffman", "anya"],
+    links: L("La Masa Ligera no mata a los Locust: despierta al Gusano de Rift (Gears 2). Gears of War: Reloaded (2025) es su remasterización.",
+             "The Lightmass does not kill the Locust: it wakes the Riftworm (Gears 2). Gears of War: Reloaded (2025) is its remaster."),
+  },
+  {
+    k: "g2", n: "Gears of War 2", rel: 2008, set: "14 AE", c: "#a51218", num: "2",
+    plot: L("Meses después, el Gusano de Rift hunde ciudades enteras. La COG lanza la Operación Hollow Storm y baja al Hollow. Dom busca a María y la encuentra torturada en el campo de Nexus. Delta descubre que los Locust huyen de los Lambent. Marcus y Dom matan a Skorge y hunden Jacinto para inundar el Hollow.",
+            "Months later, the Riftworm is sinking whole cities. The COG launches Operation Hollow Storm and goes down into the Hollow. Dom searches for Maria and finds her tortured in the Nexus camp. Delta learns that the Locust are fleeing the Lambent. Marcus and Dom kill Skorge and sink Jacinto to flood the Hollow."),
+    key: [L("Muertes de Ben Carmine y Tai Kaliso.", "Ben Carmine and Tai Kaliso die."),
+          L("Dom encuentra a María.", "Dom finds Maria."),
+          L("Primeras pistas sobre los Lambent.", "First hints of the Lambent."),
+          L("Jacinto se hunde.", "Jacinto sinks.")],
+    who: ["marcus", "dom", "ben", "tai", "maria", "skorge", "myrrah", "dizzy", "baird", "cole"],
+    links: L("La reina Myrrah aparece por primera vez y menciona a Adam Fenix, lo que prepara Gears 3.",
+             "Queen Myrrah appears for the first time and mentions Adam Fenix, setting up Gears 3."),
+  },
+  {
+    k: "g3", n: "Gears of War 3", rel: 2011, set: "17 AE", c: "#8e0f13", num: "3",
+    plot: L("Dieciocho meses más tarde, la COG ya no existe y Delta sobrevive en un barco. Prescott le entrega a Marcus un disco: Adam está vivo en Azura. Mientras los Lambent arrasan Sera, Delta busca combustible y aliados. Dom se sacrifica en Mercy. En Azura, Adam activa su arma, que mata a todo lo que tiene Imulsión, Locust y Lambent, y muere también. Marcus mata a Myrrah.",
+            "Eighteen months later, the COG is gone and Delta survives aboard a ship. Prescott gives Marcus a disk: Adam is alive on Azura. As the Lambent ravage Sera, Delta searches for fuel and allies. Dom sacrifices himself at Mercy. On Azura, Adam fires his weapon, killing everything that carries Imulsion, Locust and Lambent alike, and dies with them. Marcus kills Myrrah."),
+    key: [L("Muerte de Dom.", "Dom dies."), L("Adam reaparece y muere.", "Adam returns, and dies."),
+          L("Myrrah muere a manos de Marcus.", "Marcus kills Myrrah."), L("Fin de la Guerra Locust.", "The Locust War ends.")],
+    who: ["marcus", "dom", "adam", "myrrah", "anya", "baird", "cole", "clay", "sam", "jace", "prescott", "hoffman", "bernie"],
+    links: L("Algunos Locust sobreviven en capullos al arma de Adam y vuelven como el Enjambre (Gears 4).",
+             "Some Locust survive Adam's weapon inside cocoons and return as the Swarm (Gears 4)."),
+  },
+  {
+    k: "g4", n: "Gears of War 4", rel: 2016, set: "42 AE", c: "#4f9a8a", num: "4",
+    plot: L("Veinticinco años de paz. JD Fenix, Del y Kait, Outsiders, roban a la COG de Mina Jinn. Una nueva amenaza, el Enjambre, arrasa Fort Umson y se lleva a sus habitantes. Los tres piden ayuda a Marcus y descubren que los secuestrados se convierten en Drones. Reyna aparece fusionada con una colmena y Kait le da una muerte piadosa.",
+            "Twenty-five years of peace. JD Fenix, Del and Kait, now Outsiders, are raiding Mina Jinn's COG. A new threat, the Swarm, overruns Fort Umson and takes its people. The three turn to Marcus for help and discover that the abducted are being turned into Drones. Reyna is found fused to a hive and Kait gives her a mercy killing."),
+    key: [L("El Enjambre se presenta.", "The Swarm is introduced."), L("Muere Oscar Diaz.", "Oscar Diaz dies."),
+          L("Marcus vuelve a la acción.", "Marcus returns to action."), L("Kait recibe el colgante con el emblema Locust.", "Kait inherits the pendant bearing the Locust emblem.")],
+    who: ["jd", "kait", "del", "marcus", "oscar", "reyna", "baird", "cole", "jinn"],
+    links: L("El colgante abre el misterio de Gears 5: ¿por qué tenía Reyna el sello de la reina Locust?",
+             "The pendant opens the mystery of Gears 5: why did Reyna carry the Locust Queen's seal?"),
+  },
+  {
+    k: "g5", n: "Gears 5", rel: 2019, set: "42 AE", c: "#3b7f72", num: "5",
+    plot: L("La COG reactiva el Martillo del Alba contra el Enjambre. Kait, atormentada por visiones, viaja con Del por Kashkur y el Vasgar hasta el monte Kadar. Allí la IA de Niles Samson le revela que los Locust nacieron de humanos y que Myrrah es su abuela. De vuelta, el Enjambre ataca Nueva Ephyra y Kait tiene que elegir entre salvar a JD o a Del.",
+            "The COG brings the Hammer of Dawn back online against the Swarm. Kait, haunted by visions, travels with Del through Kashkur and the Vasgar to Mount Kadar. There Niles Samson's AI reveals that the Locust were born from humans and that Myrrah is her grandmother. Back home, the Swarm attacks New Ephyra and Kait must choose whether to save JD or Del."),
+    key: [L("Kait es nieta de Myrrah.", "Kait is Myrrah's granddaughter."), L("La Matriarca y la IA de Samson.", "The Matriarch and Samson's AI."),
+          L("JD carga con la culpa del Asentamiento 2.", "JD carries the guilt of Settlement 2."), L("Final con dos opciones: JD o Del.", "An ending with two options: JD or Del.")],
+    who: ["kait", "jd", "del", "fahz", "marcus", "baird", "cole", "samson", "matriarch", "myrrah", "reyna"],
+    links: L("Cierra el hilo de New Hope abierto en Tactics. El de la mente colmena de Myrrah queda abierto.",
+             "Closes the New Hope thread opened in Tactics. The thread of Myrrah's hivemind is left open."),
+  },
+  {
+    k: "hive", n: "Gears 5: Hivebusters", rel: 2020, set: "42 AE", c: "#2f6a60", num: "H",
+    plot: L("El Equipo Scorpio, a las órdenes de Hoffman, prueba un arma experimental para destruir colmenas del Enjambre en un archipiélago volcánico.",
+            "Team Scorpio, under Hoffman's command, tests an experimental weapon for destroying Swarm hives in a volcanic archipelago."),
+    key: [L("Lahni es prima de Tai.", "Lahni is Tai's cousin."), L("Hoffman, ya veterano, al mando.", "Hoffman, now a veteran, in command."),
+          L("Se ve la guerra contra el Enjambre a escala global.", "Shows the war against the Swarm on a global scale.")],
+    who: ["lahni", "keegan", "mac", "hoffman"],
+    links: L("Ocurre en paralelo a Gears 5.", "Runs in parallel with Gears 5."),
+  },
+];
+
+/** Orden de lanzamiento real: [clave, año]. */
+export const RELEASE_ORDER = [["g1", 2006], ["g2", 2008], ["g3", 2011], ["judg", 2013], ["g4", 2016], ["g5", 2019], ["tact", 2020], ["hive", 2020], ["eday", 2026]];

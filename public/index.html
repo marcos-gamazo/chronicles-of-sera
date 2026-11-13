@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crónicas de Sera</title>
+  <meta name="description" content="Infografía del lore de Gears of War: cronología, juegos, personajes, relaciones y árboles genealógicos.">
+  <meta name="theme-color" content="#0d0d0e">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" defer></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <div id="progress" aria-hidden="true"></div>
+
+  <svg width="0" height="0" class="sr-defs" aria-hidden="true">
+    <defs>
+      <g id="cogshape">
+        <path fill="#c4161c" d="M50 6l6 9 10-4 2 10 10 2-4 10 9 6-9 6 4 10-10 2-2 10-10-4-6 9-6-9-10 4-2-10-10-2 4-10-9-6 9-6-4-10 10-2 2-10 10 4z"/>
+        <circle cx="50" cy="50" r="22" fill="#0d0d0e"/>
+        <path fill="#c4161c" d="M38 40c4-6 20-6 24 0v8c0 8-6 13-12 15-6-2-12-7-12-15z"/>
+        <circle cx="44" cy="48" r="3" fill="#0d0d0e"/><circle cx="56" cy="48" r="3" fill="#0d0d0e"/>
+        <path fill="#0d0d0e" d="M46 56h8l-4 4z"/>
+      </g>
+    </defs>
+  </svg>
+
+  <nav class="top">
+    <div class="wrap">
+      <a class="brand" href="#inicio"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#cogshape"/></svg>SERA</a>
+      <div class="navlinks" id="navlinks">
+        <a href="#mundo" data-i18n="nav.world"></a>
+        <a href="#cronologia" data-i18n="nav.timeline"></a>
+        <a href="#hilos" data-i18n="nav.threads"></a>
+        <a href="#orden" data-i18n="nav.order"></a>
+        <a href="#juegos" data-i18n="nav.games"></a>
+        <a href="#personajes" data-i18n="nav.chars"></a>
+        <a href="#relaciones" data-i18n="nav.graph"></a>
+        <a href="#familias" data-i18n="nav.families"></a>
+        <a href="#caidos" data-i18n="nav.fallen"></a>
+        <a href="#glosario" data-i18n="nav.glossary"></a>
+      </div>
+      <div class="lang" role="group" data-i18n-aria="lang.switch">
+        <button type="button" data-lang-btn="es">ES</button>
+        <button type="button" data-lang-btn="en">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- HERO -->
+    <header class="hero" id="inicio">
+      <div class="embers" id="embers" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="hero-copy">
+          <div class="kicker" data-i18n="hero.kicker"></div>
+          <h1 data-i18n="hero.title"></h1>
+          <p data-i18n="hero.text"></p>
+          <div class="hero-cta">
+            <a class="btn red" href="#cronologia" data-i18n="hero.cta1"></a>
+            <a class="btn" href="#familias" data-i18n="hero.cta2"></a>
+          </div>
+        </div>
+        <svg class="cog" viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><use href="#cogshape"/></g></svg>
+      </div>
+    </header>
+    <div class="wrap">
+      <div class="stats" data-reveal>
+        <div class="stat" data-i18n="stat1"></div>
+        <div class="stat" data-i18n="stat2"></div>
+        <div class="stat" data-i18n="stat3"></div>
+        <div class="stat" data-i18n="stat4"></div>
+      </div>
+    </div>
+
+    <!-- 01 MUNDO -->
+    <section id="mundo"><div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div class="kicker" data-i18n="world.k"></div>
+        <h2 class="sec-title" data-i18n="world.t"></h2>
+        <p class="lead" data-i18n="world.lead"></p>
+      </div>
+      <div class="primer stagger" id="primer" data-reveal></div>
+      <p class="hint" data-i18n="world.hint"></p>
+    </div></section>
+
+    <!-- 02 CRONOLOGÍA -->
+    <section id="cronologia"><div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div class="kicker" data-i18n="tl.k"></div>
+        <h2 class="sec-title" data-i18n="tl.t"></h2>
+        <p class="lead" data-i18n="tl.lead"></p>
+      </div>
+      <div class="chips" id="tlchips"></div>
+      <div class="timeline" id="timeline" data-reveal></div>
+    </div></section>
+
+    <!-- 03 HILOS -->
+    <section id="hilos"><div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div class="kicker" data-i18n="th.k"></div>
+        <h2 class="sec-title" data-i18n="th.t"></h2>
+        <p class="lead" data-i18n="th.lead"></p>
+      </div>
+      <div class="scrollx threads" id="threads" data-reveal></div>
+      <p class="hint" data-i18n="th.hint"></p>
+    </div></section>
+
+    <!-- 04 ORDEN -->
+    <section id="orden"><div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div class="kicker" data-i18n="ord.k"></div>
+        <h2 class="sec-title" data-i18n="ord.t"></h2>
+        <p class="lead" data-i18n="ord.lead"></p>
+      </div>
+      <div class="order" id="order" data-reveal>
+        <div class="order-col"><h3 data-i18n="ord.rel"></h3><ul class="olist" id="olRel"></ul></div>
+        <svg id="orderlines" aria-hidden="true"></svg>
+        <div class="order-col"><h3 data-i18n="ord.chr"></h3><ul class="olist" id="olChr"></ul></div>
+      </div>
+    </div></section>
+
+    <!-- 05 JUEGOS -->
+    <section id="juegos"><div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div class="kicker" data-i18n="gm.k"></div>
+        <h2 class="sec-title" data-i18n="gm.t"></h2>
+        <p class="lead" data-i18n="gm.lead"></p>
+      </div>
+      <div class="games stagger" id="games" data-reveal></div>
+    </div></section>
+
+    <!-- 06 PERSONAJES -->
+    <section id="personajes"><div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div class="kicker" data-i18n="ch.k"></div>
+        <h2 class="sec-title" data-i18n="ch.t"></h2>
+        <p class="lead" data-i18n="ch.lead"></p>
+      </div>
+      <div class="filters">
+        <input class="search" id="search" type="search" data-i18n-placeholder="ch.search" data-i18n-aria="ch.search">
+        <div class="chips" id="cchips"></div>
+      </div>
+      <div class="cgrid stagger" id="cgrid" data-reveal></div>
+    </div></section>
+
+    <!-- 07 RELACIONES -->
+    <section id="relaciones"><div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div class="kicker" data-i18n="gr.k"></div>
+        <h2 class="sec-title" data-i18n="gr.t"></h2>
+        <p class="lead" data-i18n="gr.lead"></p>
+      </div>
+      <div class="chips graph-legend" id="glegend"></div>
+      <div class="graph-box" data-reveal><svg id="graph"></svg><div class="gtip" id="gtip"></div></div>
+    </div></section>
+
+    <!-- 08 FAMILIAS -->
+    <section id="familias"><div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div class="kicker" data-i18n="fam.k"></div>
+        <h2 class="sec-title" data-i18n="fam.t"></h2>
+        <p class="lead" data-i18n="fam.lead"></p>
+      </div>
+      <div class="trees stagger" id="trees" data-reveal></div>
+    </div></section>
+
+    <!-- 09 CAÍDOS -->
+    <section id="caidos"><div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div class="kicker" data-i18n="fal.k"></div>
+        <h2 class="sec-title" data-i18n="fal.t"></h2>
+        <p class="lead" data-i18n="fal.lead"></p>
+      </div>
+      <div class="memorial stagger" id="memorial" data-reveal></div>
+    </div></section>
+
+    <!-- 10 GLOSARIO -->
+    <section id="glosario"><div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div class="kicker" data-i18n="gl.k"></div>
+        <h2 class="sec-title" data-i18n="gl.t"></h2>
+        <p class="lead" data-i18n="gl.lead"></p>
+      </div>
+      <div class="route stagger" id="routes" data-reveal></div>
+      <div class="gloss stagger" id="gloss" data-reveal></div>
+    </div></section>
+  </main>
+
+  <footer><div class="wrap" data-i18n="footer"></div></footer>
+
+  <dialog id="dlg" aria-labelledby="dlgtitle">
+    <div class="mwrap">
+      <button class="close" id="dlgclose" type="button" data-i18n-aria="close">✕</button>
+      <div id="dlgbody"></div>
+    </div>
+  </dialog>
+
+  <noscript><p class="noscript">Esta infografía necesita JavaScript. · This infographic requires JavaScript.</p></noscript>
+</body>
+</html>
