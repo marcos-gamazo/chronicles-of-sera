@@ -47,7 +47,9 @@ Infografía interactiva y bilingüe (**español / inglés**) sobre el lore de *G
 │   ├── _headers             ← cabeceras de Cloudflare Pages
 │   └── favicon.svg
 ├── scripts/check-data.mjs   ← valida traducciones y referencias
+├── .github/workflows/       ← despliegue automático con Wrangler
 ├── wrangler.jsonc           ← configuración de Cloudflare Pages
+├── pnpm-workspace.yaml      ← dependencias con scripts permitidos (esbuild, workerd)
 └── package.json
 ```
 
@@ -55,11 +57,11 @@ La separación **datos / render** permite ampliar el contenido sin tocar la lóg
 
 ## Desarrollo local
 
-Requisitos: Node.js 18+.
+Requisitos: Node.js 20+ y [pnpm](https://pnpm.io) (la versión exacta está en `packageManager` de `package.json`).
 
 ```bash
-npm install          # instala wrangler
-npm run dev          # http://localhost:8788 (servidor de Cloudflare Pages en local)
+pnpm install         # instala wrangler
+pnpm run dev         # http://localhost:8788 (servidor de Cloudflare Pages en local)
 ```
 
 Al usar módulos ES, la página **no funciona abriendo `index.html` con doble clic** (`file://`): necesita un servidor. Alternativa sin Node: `python3 -m http.server -d public 8000`.
@@ -67,11 +69,24 @@ Al usar módulos ES, la página **no funciona abriendo `index.html` con doble cl
 ## Despliegue
 
 ```bash
-npx wrangler login   # una sola vez
-npm run deploy       # valida los datos y publica public/ en Cloudflare Pages
+pnpm exec wrangler login   # una sola vez
+pnpm run deploy            # valida los datos y publica public/ en Cloudflare Pages
 ```
 
-`npm run deploy` ejecuta antes `npm run check` y no publica si los datos tienen errores.
+`pnpm run deploy` ejecuta antes `pnpm run check` y no publica si los datos tienen errores.
+
+### Despliegue automático (GitHub Actions)
+
+El workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) despliega con Wrangler en cada cambio:
+
+| Evento | Resultado |
+|---|---|
+| push a `main` | producción → https://cronicas-de-sera.pages.dev |
+| pull request | vista previa con URL propia (`<rama>.cronicas-de-sera.pages.dev`) |
+| manual (*Run workflow*) | redespliegue de la rama elegida |
+
+Antes de desplegar instala con `pnpm install --frozen-lockfile` y ejecuta `pnpm run check`.
+Necesita dos secretos del repositorio: `CLOUDFLARE_API_TOKEN` (permiso *Cloudflare Pages: Edit*) y `CLOUDFLARE_ACCOUNT_ID`.
 
 ## Idiomas
 
@@ -104,7 +119,7 @@ Añade su retrato en `IMG` (opcional: sin imagen se muestran sus iniciales) y, s
 Después de cualquier cambio:
 
 ```bash
-npm run check
+pnpm run check
 ```
 
 Comprueba que **todos los textos tienen versión en español y en inglés**, y que cada id de personaje, juego, era o vínculo referenciado existe.
