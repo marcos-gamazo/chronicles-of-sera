@@ -222,7 +222,10 @@ dialog[open]::backdrop { animation: fadeIn .3s ease; }
 .modal .mpic { position: relative; background: var(--panel2); --fs: 72px; min-height: 300px; }
 .modal .mpic::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, .65)); }
 .modal .mpic .ph { animation: kenburns 14s ease-out both; }
-.modal .mbody { padding: 26px 28px; overflow-y: auto; }
+/* La columna de texto es la que hace scroll: necesita su propio límite de altura,
+   porque un elemento de grid no encoge por debajo de su contenido (min-height: auto)
+   y el .modal recortaría el resto sin dejar desplazarlo. */
+.modal .mbody { padding: 26px 28px; overflow-y: auto; min-height: 0; max-height: min(88vh, 860px); overscroll-behavior: contain; }
 .modal h2 { font-size: 34px; }
 .modal .alias { color: var(--fc); font: 500 14px var(--display); letter-spacing: .1em; text-transform: uppercase; margin: 4px 0 14px; }
 .mshort { margin: 0 0 16px; color: #d4cec4; }
@@ -361,9 +364,9 @@ body.lang-fade main, body.lang-fade footer { opacity: 0; filter: blur(2px); }
   .game { grid-template-columns: minmax(0, 1fr); }
   .game .side { flex-direction: row; align-items: flex-end; }
   .game .cols { grid-template-columns: minmax(0, 1fr); }
-  .modal { grid-template-columns: minmax(0, 1fr); max-height: 90vh; overflow-y: auto; }
+  .modal { grid-template-columns: minmax(0, 1fr); max-height: 90vh; overflow-y: auto; overscroll-behavior: contain; }
   .modal .mpic { min-height: 240px; height: 240px; }
-  .modal .mbody { overflow: visible; }
+  .modal .mbody { overflow: visible; max-height: none; }
   .order { grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr); }
   .oitem .n { display: none; }
 }
