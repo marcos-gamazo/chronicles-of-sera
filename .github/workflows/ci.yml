@@ -1,0 +1,35 @@
+# Validación de datos en GitHub. El despliegue lo hace la integración Git de
+# Cloudflare Pages (proyecto cronicas-de-sera), que ejecuta `pnpm run check` como
+# comando de build y publica ./public (pages_build_output_dir en wrangler.jsonc).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4 # usa la versión de "packageManager" en package.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Validar datos (traducciones y referencias)
+        run: pnpm run check

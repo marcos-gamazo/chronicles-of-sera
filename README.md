@@ -47,7 +47,7 @@ Infografía interactiva y bilingüe (**español / inglés**) sobre el lore de *G
 │   ├── _headers             ← cabeceras de Cloudflare Pages
 │   └── favicon.svg
 ├── scripts/check-data.mjs   ← valida traducciones y referencias
-├── .github/workflows/       ← despliegue automático con Wrangler
+├── .github/workflows/       ← CI: validación de datos
 ├── wrangler.jsonc           ← configuración de Cloudflare Pages
 ├── pnpm-workspace.yaml      ← dependencias con scripts permitidos (esbuild, workerd)
 └── package.json
@@ -68,25 +68,35 @@ Al usar módulos ES, la página **no funciona abriendo `index.html` con doble cl
 
 ## Despliegue
 
+### Automático (integración Git de Cloudflare Pages)
+
+El proyecto `cronicas-de-sera` está conectado a este repositorio. Cloudflare despliega solo:
+
+| Evento | Resultado |
+|---|---|
+| push a `main` | producción → https://cronicas-de-sera.pages.dev |
+| push a otra rama / pull request | vista previa con URL propia y comentario en el PR |
+
+Configuración del proyecto en Cloudflare (*Settings → Build*):
+
+| Campo | Valor |
+|---|---|
+| Build command | `pnpm run check` (si los datos fallan, no se publica) |
+| Build output directory | *(vacío)*: se toma `pages_build_output_dir: ./public` de `wrangler.jsonc` |
+| Root directory | *(vacío)* |
+
+GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) solo valida los datos en cada push y pull request; no despliega ni necesita secretos.
+
+### Manual (Wrangler)
+
+Para publicar sin pasar por GitHub (por ejemplo, para probar algo):
+
 ```bash
 pnpm exec wrangler login   # una sola vez
 pnpm run deploy            # valida los datos y publica public/ en Cloudflare Pages
 ```
 
-`pnpm run deploy` ejecuta antes `pnpm run check` y no publica si los datos tienen errores.
-
-### Despliegue automático (GitHub Actions)
-
-El workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) despliega con Wrangler en cada cambio:
-
-| Evento | Resultado |
-|---|---|
-| push a `main` | producción → https://cronicas-de-sera.pages.dev |
-| pull request | vista previa con URL propia (`<rama>.cronicas-de-sera.pages.dev`) |
-| manual (*Run workflow*) | redespliegue de la rama elegida |
-
-Antes de desplegar instala con `pnpm install --frozen-lockfile` y ejecuta `pnpm run check`.
-Necesita dos secretos del repositorio: `CLOUDFLARE_API_TOKEN` (permiso *Cloudflare Pages: Edit*) y `CLOUDFLARE_ACCOUNT_ID`.
+`pnpm run deploy` ejecuta antes `pnpm run check` y no publica si los datos tienen errores. El siguiente push a `main` sustituirá ese despliegue.
 
 ## Idiomas
 
