@@ -7,6 +7,7 @@ import { GAMES, GAME_LABELS, RELEASE_ORDER } from "../public/js/data/games.js";
 import { LINKS, LINK_TYPES, LINK_NOTES, FALLEN } from "../public/js/data/relations.js";
 import { PRIMER, GLOSSARY, ROUTES } from "../public/js/data/world.js";
 import { TREES } from "../public/js/data/trees.js";
+import { GAME_DETAILS } from "../public/js/data/game-details.js";
 
 const errors = [];
 const err = (msg) => errors.push(msg);
@@ -34,6 +35,7 @@ checkBilingual({ GAMES, GAME_LABELS }, "games");
 checkBilingual({ LINK_TYPES, LINK_NOTES, FALLEN }, "relations");
 checkBilingual({ PRIMER, GLOSSARY, ROUTES }, "world");
 checkBilingual(TREES, "TREES");
+checkBilingual(GAME_DETAILS, "GAME_DETAILS");
 
 const ids = new Set();
 CHARACTERS.forEach((c) => {
@@ -50,6 +52,13 @@ EVENTS.forEach((e, i) => {
   e.who.forEach((w) => hasChar(w, `EVENTS[${i}]`));
 });
 GAMES.forEach((g) => g.who.forEach((w) => hasChar(w, `GAMES.${g.k}`)));
+GAMES.forEach((g) => {
+  const d = GAME_DETAILS[g.k];
+  if (!d) return err(`GAME_DETAILS: falta la ficha ampliada de "${g.k}"`);
+  if (!d.acts?.length) err(`GAME_DETAILS.${g.k}: sin actos`);
+  [...d.villains, ...d.fallen].forEach((x) => { if (typeof x === "string") hasChar(x, `GAME_DETAILS.${g.k}`); });
+});
+Object.keys(GAME_DETAILS).forEach((k) => { if (!GAMES.some((g) => g.k === k)) err(`GAME_DETAILS: "${k}" no es un juego`); });
 RELEASE_ORDER.forEach(([k]) => { if (!GAMES.some((g) => g.k === k)) err(`RELEASE_ORDER: juego sin ficha "${k}"`); });
 LINKS.forEach(([a, b, t], i) => { hasChar(a, `LINKS[${i}]`); hasChar(b, `LINKS[${i}]`); if (!LINK_TYPES[t]) err(`LINKS[${i}]: tipo "${t}"`); });
 Object.keys(LINK_NOTES).forEach((k) => {
@@ -70,4 +79,4 @@ if (errors.length) {
   console.error(`✘ ${errors.length} problema(s):\n  - ${errors.join("\n  - ")}`);
   process.exit(1);
 }
-console.log(`✔ Datos correctos: ${CHARACTERS.length} personajes, ${EVENTS.length} eventos, ${GAMES.length} juegos, ${LINKS.length} vínculos, ${TREES.length} árboles, ${Object.keys(UI).length} textos de interfaz (ES/EN).`);
+console.log(`✔ Datos correctos: ${CHARACTERS.length} personajes, ${EVENTS.length} eventos, ${GAMES.length} juegos (${Object.values(GAME_DETAILS).reduce((n, d) => n + d.acts.length, 0)} actos), ${LINKS.length} vínculos, ${TREES.length} árboles, ${Object.keys(UI).length} textos de interfaz (ES/EN).`);

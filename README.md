@@ -16,7 +16,7 @@ Infografía interactiva y bilingüe (**español / inglés**) sobre el lore de *G
 | **Cronología** | 26 hechos desde New Hope (c. 79 a.E.) hasta la Invasión del Enjambre (42 d.E.), filtrables por juego. |
 | **Hilos** | Gráfico de carriles con seis tramas (ciencia, Fenix, Santiago, Diaz-Torres, Horda, política) a lo largo de las eras. |
 | **Orden** | Orden de lanzamiento frente a orden cronológico, unidos con líneas. |
-| **Juegos** | Ficha por juego (E-Day, Judgment, Tactics, Gears 1–5, Hivebusters): trama, momentos clave, personajes y conexiones. |
+| **Juegos** | Ficha por juego (E-Day, Judgment, Tactics, Gears 1–5, Hivebusters): trama, momentos clave, personajes y conexiones. Al pulsarla se abre la historia completa: 45 actos en total, lugares, antagonistas, quién muere, qué aporta al lore, desarrollo y plataformas, con navegación al juego anterior y siguiente. |
 | **Personajes** | 44 fichas con retrato, buscador, filtro por bando y ficha detallada con historia por etapas. |
 | **Relaciones** | Grafo de fuerzas (D3) con 83 vínculos de cinco tipos; se puede arrastrar, hacer zoom y filtrar. |
 | **Familias** | Árboles de las casas Fenix-Stroud, Santiago, Myrrah → Diaz, Carmine y de la especie Locust. |
@@ -35,11 +35,13 @@ Infografía interactiva y bilingüe (**español / inglés**) sobre el lore de *G
 │   │   ├── i18n.js          ← idioma activo, tr(), era(), ui()
 │   │   ├── l.js             ← L(es, en): constructor de textos bilingües
 │   │   ├── util.js          ← helpers de DOM y retratos
+│   │   ├── modal.js         ← ventana compartida (fichas de personaje y de juego)
 │   │   ├── data/            ← TODO el contenido (sin lógica)
 │   │   │   ├── ui.js          textos de interfaz
 │   │   │   ├── characters.js  personajes, bandos, URLs de retratos
 │   │   │   ├── timeline.js    eras, eventos y carriles del gráfico de hilos
 │   │   │   ├── games.js       fichas de juegos y orden de lanzamiento
+│   │   │   ├── game-details.js historia por actos, lugares, antagonistas y muertes de cada juego
 │   │   │   ├── relations.js   vínculos del grafo y caídos
 │   │   │   ├── trees.js       árboles genealógicos
 │   │   │   └── world.js       claves del mundo, glosario y rutas
@@ -121,6 +123,8 @@ pnpm run deploy            # valida los datos y publica public/ en Cloudflare Pa
 ```
 
 Añade su retrato en `IMG` (opcional: sin imagen se muestran sus iniciales) y, si quieres, vínculos en `relations.js`.
+
+**Ampliar la historia de un juego** — en `game-details.js`, cada juego tiene `acts` (`A(títuloES, títuloEN, textoES, textoEN)`), `places`, `villains`, `fallen` y `lore`. En `villains` y `fallen` se puede usar el id de un personaje (sale con retrato y enlace a su ficha) o un nombre con `L(…)`.
 
 **Añadir un evento** — en `timeline.js`, con `E(era, año, títuloES, títuloEN, textoES, textoEN, [juegos], [personajes], destacado)`.
 

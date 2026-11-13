@@ -191,6 +191,49 @@ button.tag:hover { border-color: var(--text); background: var(--panel); }
 .faces { display: flex; flex-wrap: wrap; gap: 6px; }
 .links { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 13px; color: var(--muted); }
 .links b { color: var(--gold); font-weight: 600; }
+.game[data-game] { cursor: pointer; }
+.btn-story { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; font: 600 12px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; padding: 11px 16px; border-radius: 6px; border: 1px solid color-mix(in srgb, var(--c) 70%, var(--line)); background: color-mix(in srgb, var(--c) 22%, var(--panel)); cursor: pointer; transition: background .2s, transform .2s var(--ease); }
+.btn-story span { transition: transform .25s var(--ease); }
+.game:hover .btn-story { background: var(--c); }
+.game:hover .btn-story span { transform: translateX(4px); }
+
+/* Ventana de historia del juego. El área .gm-scroll es la que se desplaza:
+   min-height: 0 + límite propio de altura (ver el arreglo de la ficha de personaje). */
+.gmodal { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; max-height: min(90vh, 920px); }
+.gm-head { position: relative; display: flex; gap: 20px; align-items: flex-end; padding: 26px 64px 22px 28px; background: linear-gradient(135deg, var(--c), color-mix(in srgb, var(--c) 25%, #000)); flex: none; overflow: hidden; }
+.gm-num { font: 700 110px/.75 var(--display); opacity: .22; flex: none; }
+.gm-title { min-width: 0; }
+.gm-kicker { font: 600 12px var(--display); letter-spacing: .16em; text-transform: uppercase; opacity: .9; }
+.gm-head h2 { font-size: clamp(26px, 4vw, 40px); margin: 4px 0 10px; }
+.gm-meta { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 13px; }
+.gm-meta small { display: block; font: 600 10px var(--display); letter-spacing: .16em; text-transform: uppercase; opacity: .75; }
+.gm-scroll { overflow-y: auto; min-height: 0; flex: 1 1 auto; padding: 24px 28px 28px; overscroll-behavior: contain; }
+.gm-intro { margin: 0 0 22px; color: #d4cec4; font-size: 15.5px; }
+.acts { list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.acts li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; background: var(--bg2); border: 1px solid var(--line); border-left: 3px solid var(--c); border-radius: 10px; padding: 14px 16px; animation: rise .5s var(--ease) both; animation-delay: calc(min(var(--i), 8) * 60ms + .1s); }
+.act-n { font: 700 22px/1 var(--display); color: var(--c); filter: brightness(1.4); padding-top: 2px; }
+.acts h4 { font-size: 17px; margin-bottom: 6px; }
+.acts p { margin: 0; color: var(--body-text); font-size: 14px; }
+.gm-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; margin-bottom: 20px; }
+.gm-block { min-width: 0; padding: 0; } /* son <section>: anular el padding de las secciones de la página */
+section.gm-block + .links { margin-top: 4px; }
+.who-list, .place-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.who-chip { display: inline-flex; align-items: center; gap: 7px; background: var(--bg2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px 3px 3px; font-size: 13px; cursor: pointer; transition: border-color .2s; }
+.who-chip:hover { border-color: var(--fc, var(--red)); }
+.who-chip .face { width: 26px; height: 26px; border-width: 1px; }
+.who-chip.plain { padding: 5px 11px; cursor: default; color: var(--body-text); }
+.who-chip i { font-style: normal; color: var(--red); }
+.place { font-size: 13px; padding: 5px 10px; border-radius: 6px; background: var(--bg2); border: 1px dashed var(--line); color: var(--body-text); }
+.gm-lore { margin: 0 0 18px; padding-left: 18px; color: var(--body-text); font-size: 14px; }
+.gm-lore li { margin-bottom: 5px; }
+.gm-navs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+.gm-nav { text-align: left; background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: border-color .2s, transform .2s var(--ease); }
+.gm-nav.next { text-align: right; }
+.gm-nav:hover { border-color: var(--nc); transform: translateY(-2px); }
+.gm-nav small { display: block; font: 600 10px var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.gm-nav b { display: block; font: 600 15px/1.2 var(--display); text-transform: uppercase; margin: 4px 0 2px; }
+.gm-nav span { font-size: 12px; color: var(--muted); }
+#dlg[data-kind="game"] { max-width: min(900px, calc(100vw - 24px)); }
 
 /* 11. Personajes y modal ------------------------------------------------ */
 .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 22px; }
@@ -364,6 +407,12 @@ body.lang-fade main, body.lang-fade footer { opacity: 0; filter: blur(2px); }
   .game { grid-template-columns: minmax(0, 1fr); }
   .game .side { flex-direction: row; align-items: flex-end; }
   .game .cols { grid-template-columns: minmax(0, 1fr); }
+  .gm-grid, .gm-navs { grid-template-columns: minmax(0, 1fr); }
+  .gm-nav.next { text-align: left; }
+  .gm-head { padding: 22px 56px 18px 20px; gap: 12px; }
+  .gm-num { font-size: 64px; }
+  .gm-scroll { padding: 18px 18px 22px; }
+  .acts li { grid-template-columns: 30px minmax(0, 1fr); gap: 10px; padding: 12px; }
   .modal { grid-template-columns: minmax(0, 1fr); max-height: 90vh; overflow-y: auto; overscroll-behavior: contain; }
   .modal .mpic { min-height: 240px; height: 240px; }
   .modal .mbody { overflow: visible; max-height: none; }

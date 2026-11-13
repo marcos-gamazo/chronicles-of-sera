@@ -73,17 +73,17 @@ export const EVENTS = [
   E("paz", "30 AE", "Muere Gabe Diaz", "Gabe Diaz dies",
     "Reyna y Oscar quedan al frente de Fort Umson.", "Reyna and Oscar take charge of Fort Umson.", ["g4"], ["gabe", "reyna", "oscar"]),
   E("paz", "c. 41 AE", "Masacre del Asentamiento 2", "The Settlement 2 massacre",
-    "Con órdenes de Jinn, JD y su unidad disparan contra manifestantes. JD y Del desertan y se unen a los Outsiders de Kait.",
-    "On Jinn's orders, JD and his unit fire on protesters. JD and Del desert and join Kait's Outsiders.", ["g5"], ["jd", "del", "fahz", "jinn", "kait"], true),
+    "Enviados a sofocar una protesta, JD da la orden de abrir fuego y mueren civiles. JD y Del desertan y se unen a los Outsiders de Kait.",
+    "Sent to put down a protest, JD gives the order to open fire and civilians die. JD and Del desert and join Kait's Outsiders.", ["g5"], ["jd", "del", "fahz", "jinn", "kait"], true),
   E("enjambre", "42 AE", "Emerge el Enjambre", "The Swarm emerges",
-    "Los Locust evolucionados atacan Fort Umson. Reyna se convierte en su reina. Muere Oscar. Kait libera a su madre de su sufrimiento.",
-    "The evolved Locust attack Fort Umson. Reyna is made their queen. Oscar dies. Kait releases her mother from her suffering.", ["g4"], ["jd", "kait", "del", "marcus", "oscar", "reyna", "baird", "cole"], true),
+    "Los Locust evolucionados atacan Fort Umson y se llevan a sus habitantes. Reyna aparece fusionada con una colmena y Kait la libera de su sufrimiento.",
+    "The evolved Locust raid Fort Umson and take its people. Reyna is found fused to a hive and Kait releases her from her suffering.", ["g4"], ["jd", "kait", "del", "marcus", "reyna", "baird", "cole"], true),
   E("enjambre", "42 AE", "El secreto de Kait", "Kait's secret",
-    "Kait descubre en el monte Kadar que es nieta de Myrrah y que la COG creó a los Locust. La COG reactiva el Martillo del Alba. Kait tiene que elegir entre JD y Del.",
-    "At Mount Kadar Kait learns she is Myrrah's granddaughter and that the COG created the Locust. The COG brings the Hammer of Dawn back online. Kait must choose between JD and Del.", ["g5"], ["kait", "jd", "del", "fahz", "samson", "matriarch", "myrrah", "marcus", "baird", "cole"], true),
+    "Muere Oscar. En el monte Kadar Kait descubre que es nieta de Myrrah y que la COG creó a los Locust; Reyna resucita como reina del Enjambre. La COG reactiva el Martillo del Alba y, en Nueva Ephyra, Kait tiene que elegir entre JD y Del.",
+    "Oscar dies. At Mount Kadar Kait learns she is Myrrah's granddaughter and that the COG created the Locust; Reyna is resurrected as Queen of the Swarm. The COG brings the Hammer of Dawn back online and, in New Ephyra, Kait must choose between JD and Del.", ["g5"], ["kait", "jd", "del", "fahz", "oscar", "samson", "matriarch", "reyna", "marcus", "baird"], true),
   E("enjambre", "42 AE", "Hivebusters", "Hivebusters",
-    "El Equipo Scorpio (Lahni, Keegan y Mac), a las órdenes de Hoffman, destruye colmenas del Enjambre en un archipiélago volcánico.",
-    "Team Scorpio (Lahni, Keegan and Mac), under Hoffman's command, destroys Swarm hives in a volcanic archipelago.", ["hive"], ["lahni", "keegan", "mac", "hoffman"]),
+    "En una operación secreta a espaldas de Jinn, Hoffman envía al Equipo Scorpio (Lahni, Keegan y Mac) a la isla de Pahanu a destruir una colmena desde dentro.",
+    "In a secret operation behind Jinn's back, Hoffman sends Team Scorpio (Lahni, Keegan and Mac) to the island of Pahanu to destroy a hive from the inside.", ["hive"], ["lahni", "keegan", "mac", "hoffman"]),
 ];
 
 /* ---------- Gráfico de hilos (swimlanes) ---------- */
@@ -130,7 +130,7 @@ export const THREAD_LANES = [
     P(1, "Gabe rescata a Reyna", "Gabe rescues Reyna", "Tactics", "Tactics"),
     P(18, "Fort Umson", "Fort Umson", "Primeros Outsiders", "The first Outsiders"),
     P(30, "Muere Gabe", "Gabe dies"),
-    P(42, "Reyna, reina del Enjambre", "Reyna, Queen of the Swarm", "Gears 4", "Gears 4"),
+    P(42, "Reyna, reina del Enjambre", "Reyna, Queen of the Swarm", "Gears 4 y 5", "Gears 4 and 5"),
     P(42.6, "Kait: nieta de Myrrah", "Kait: Myrrah's granddaughter", "Gears 5", "Gears 5")] },
   { n: L("Horda Locust", "Locust Horde"), c: "#d6a74a", pts: [
     P(-30, "Myrrah, reina", "Myrrah becomes queen", "Desciende al Hollow", "Descends into the Hollow"),
@@ -145,7 +145,7 @@ export const THREAD_LANES = [
     P(1, "Ataques del Martillo", "Hammer strikes", "Prescott quema Sera", "Prescott burns Sera"),
     P(15, "Exilio en Vectes", "Exile on Vectes"),
     P(18, "Anya, Primera Ministra", "Anya, First Minister", "Nueva COG", "New COG"),
-    P(41, "Asentamiento 2", "Settlement 2", "Jinn ordena disparar", "Jinn orders them to fire"),
+    P(41, "Asentamiento 2", "Settlement 2", "Masacre de civiles", "Civilians massacred"),
     P(42, "Martillo reactivado", "Hammer back online", "Gears 5", "Gears 5")] },
 ];
 

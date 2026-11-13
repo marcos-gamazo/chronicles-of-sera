@@ -5,7 +5,8 @@ import { renderWorld } from "./render/world.js";
 import { renderTimeline, initTimeline } from "./render/timeline.js";
 import { renderThreads } from "./render/threads.js";
 import { renderOrder, initOrder } from "./render/order.js";
-import { renderGames } from "./render/games.js";
+import { renderGames, initGames } from "./render/games.js";
+import { initModal, refreshModal } from "./modal.js";
 import { renderCharacters, initCharacters } from "./render/characters.js";
 import { renderGraph, initGraph } from "./render/graph.js";
 import { renderTrees } from "./render/trees.js";
@@ -45,7 +46,7 @@ function initLangSwitch() {
       requestAnimationFrame(() => document.body.classList.remove("lang-fade"));
     }, 200);
   }));
-  onLangChange(renderAll);
+  onLangChange(() => { renderAll(); refreshModal(); });
 }
 
 /* ---------- Aparición al hacer scroll ---------- */
@@ -126,7 +127,9 @@ document.documentElement.classList.add("js-reveal");
 applyStaticText();
 initTimeline();
 initOrder();
+initModal();
 initCharacters();
+initGames();
 initGraph();
 renderAll();
 initLangSwitch();
