@@ -101,8 +101,11 @@ export const UI = {
   "gr.k": L("07 · Red de relaciones", "07 · Relationship web"),
   "gr.t": L("Quién es quién para quién", "Who is who to whom"),
   "gr.lead": L(
-    "Cada línea es un vínculo: sangre, pareja, hermanos de armas, enemistad o creación científica. Arrastra los nodos, haz zoom y haz clic en un retrato para abrir su ficha. Pasa el ratón por un nodo para ver solo sus conexiones.",
-    "Each line is a bond: blood, partners, brothers in arms, enmity or scientific creation. Drag the nodes, zoom, and click a portrait to open the character's card. Hover a node to see only its connections."),
+    "Cada línea es un vínculo: sangre, pareja, hermanos de armas, enemistad o creación científica. Arrastra los nodos y haz clic en un retrato para abrir su ficha; pasa el ratón por un nodo para ver solo sus conexiones. Zoom: botones, Ctrl/⌘ + rueda o pellizco.",
+    "Each line is a bond: blood, partners, brothers in arms, enmity or scientific creation. Drag the nodes and click a portrait to open the character's card; hover a node to see only its connections. Zoom: buttons, Ctrl/⌘ + wheel or pinch."),
+  "zoom.in": L("Acercar", "Zoom in"),
+  "zoom.out": L("Alejar", "Zoom out"),
+  "zoom.reset": L("Restablecer zoom", "Reset zoom"),
 
   "fam.k": L("08 · Linajes", "08 · Bloodlines"),
   "fam.t": L("Árboles genealógicos", "Family trees"),

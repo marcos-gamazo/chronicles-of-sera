@@ -65,7 +65,7 @@
             <a class="btn" href="#familias" data-i18n="hero.cta2"></a>
           </div>
         </div>
-        <svg class="cog" viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><use href="#cogshape"/></g></svg>
+        <div class="cog-wrap" aria-hidden="true"><svg class="cog" viewBox="0 0 100 100"><g class="spin"><use href="#cogshape"/></g></svg></div>
       </div>
     </header>
     <div class="wrap">
@@ -156,7 +156,14 @@
         <p class="lead" data-i18n="gr.lead"></p>
       </div>
       <div class="chips graph-legend" id="glegend"></div>
-      <div class="graph-box" data-reveal><svg id="graph"></svg><div class="gtip" id="gtip"></div></div>
+      <div class="graph-box" data-reveal>
+        <svg id="graph"></svg><div class="gtip" id="gtip"></div>
+        <div class="gzoom" id="gzoom">
+          <button type="button" data-z="in" data-i18n-aria="zoom.in">+</button>
+          <button type="button" data-z="out" data-i18n-aria="zoom.out">−</button>
+          <button type="button" data-z="reset" data-i18n-aria="zoom.reset">⟲</button>
+        </div>
+      </div>
     </div></section>
 
     <!-- 08 FAMILIAS -->

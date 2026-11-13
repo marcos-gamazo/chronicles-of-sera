@@ -72,16 +72,30 @@ function initReveal() {
 
 /* ---------- Enlace activo en la navegación ---------- */
 function initNavSpy() {
+  const bar = $("#navlinks");
   const links = $$("#navlinks a");
   const io = new IntersectionObserver((entries) => entries.forEach((en) => {
     if (!en.isIntersecting) return;
     links.forEach((a) => {
       const on = a.getAttribute("href") === `#${en.target.id}`;
       a.classList.toggle("on", on);
-      if (on) a.scrollIntoView({ block: "nearest", inline: "nearest" });
+      // Centrar el enlace moviendo SOLO la barra de navegación. No usar
+      // scrollIntoView: también desplaza el documento e interrumpe el scroll del usuario.
+      if (on && bar.scrollWidth > bar.clientWidth) {
+        bar.scrollTo({ left: a.offsetLeft - (bar.clientWidth - a.offsetWidth) / 2, behavior: "smooth" });
+      }
     });
   }), { rootMargin: "-45% 0px -50% 0px" });
-  $$("section[id]").forEach((s) => io.observe(s));
+  // También el hero (#inicio): al volver arriba no queda ningún enlace marcado.
+  $$("section[id], #inicio").forEach((s) => io.observe(s));
+}
+
+/* ---------- Pausar animaciones decorativas fuera de pantalla ---------- */
+function initOffscreenPause() {
+  const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+    en.target.classList.toggle("paused", !en.isIntersecting);
+  }));
+  $$(".hero, #cronologia").forEach((el) => io.observe(el));
 }
 
 /* ---------- Barra de progreso de lectura ---------- */
@@ -118,6 +132,7 @@ renderAll();
 initLangSwitch();
 initReveal();
 initNavSpy();
+initOffscreenPause();
 initProgress();
 initEmbers();
 document.documentElement.classList.add("ready");

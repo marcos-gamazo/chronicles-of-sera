@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5 { font-family: var(--display); font-weight: 600; letter-spaci
 
 /* 3. Navegación --------------------------------------------------------- */
 #progress { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 60; background: linear-gradient(90deg, var(--red-dark), var(--red), var(--ember)); transform: scaleX(0); transform-origin: 0 50%; }
-nav.top { position: sticky; top: 0; z-index: 50; background: rgba(13, 13, 14, .86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+nav.top { position: sticky; top: 0; z-index: 50; background: rgba(13, 13, 14, .96); border-bottom: 1px solid var(--line); }
 nav.top .wrap { display: flex; align-items: center; gap: 14px; height: var(--nav-h); }
 .brand { font: 700 18px/1 var(--display); letter-spacing: .12em; display: flex; align-items: center; gap: 10px; white-space: nowrap; text-decoration: none; flex: none; }
 .brand svg { width: 26px; height: 26px; transition: transform .6s var(--ease); }
@@ -67,10 +67,12 @@ nav.top .wrap { display: flex; align-items: center; gap: 14px; height: var(--nav
 .hero-copy > *:nth-child(2) { animation-delay: .1s; }
 .hero-copy > *:nth-child(3) { animation-delay: .2s; }
 .hero-copy > *:nth-child(4) { animation-delay: .3s; }
-.cog { width: 100%; max-width: 440px; justify-self: center; filter: drop-shadow(0 0 40px rgba(196, 22, 28, .35)); animation: cogIn 1.2s var(--ease) both, pulseGlow 4s ease-in-out 1.2s infinite; }
+.cog-wrap { position: relative; justify-self: center; width: 100%; max-width: 440px; }
+.cog-wrap::before { content: ""; position: absolute; inset: -12%; border-radius: 50%; background: radial-gradient(circle, rgba(196, 22, 28, .45), transparent 62%); animation: glowPulse 4s ease-in-out 1.2s infinite; will-change: opacity; }
+.cog { position: relative; display: block; width: 100%; animation: cogIn 1.2s var(--ease) both; }
 .cog .spin { transform-origin: 50% 50%; animation: spin 60s linear infinite; }
 .embers { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.embers span { position: absolute; bottom: -10px; left: var(--x); width: var(--s); height: var(--s); border-radius: 50%; background: radial-gradient(circle, #ffd29a, var(--ember) 45%, transparent 70%); box-shadow: 0 0 8px var(--ember); opacity: 0; animation: ember var(--t) linear var(--d) infinite; }
+.embers span { position: absolute; bottom: -10px; left: var(--x); width: var(--s); height: var(--s); border-radius: 50%; background: radial-gradient(circle, #ffd29a, var(--ember) 45%, transparent 70%); opacity: 0; will-change: transform, opacity; animation: ember var(--t) linear var(--d) infinite; }
 
 .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin-top: -1px; }
 .stat { background: var(--bg2); padding: 22px 20px; transition: background .3s; }
@@ -137,7 +139,8 @@ button.tag:hover { border-color: var(--text); background: var(--panel); }
 .ev:hover { background: linear-gradient(90deg, color-mix(in srgb, var(--c) 8%, transparent), transparent 70%); }
 .ev::before { content: ""; position: absolute; left: -7px; top: 22px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--c); transition: transform .25s var(--ease); }
 .ev:hover::before { transform: scale(1.3); }
-.ev.big::before { background: var(--c); animation: pulse 2.6s ease-out infinite; }
+.ev.big::before { background: var(--c); }
+.ev.big::after { content: ""; position: absolute; left: -7px; top: 22px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--c); box-sizing: border-box; pointer-events: none; animation: pulse 2.6s ease-out infinite; }
 .ev .yr { font: 600 15px/1.3 var(--display); color: var(--c); letter-spacing: .06em; padding-top: 2px; }
 .ev h4 { font-size: 17px; margin-bottom: 4px; text-transform: none; letter-spacing: .01em; }
 .ev p { margin: 0; color: var(--muted); font-size: 14px; }
@@ -245,6 +248,9 @@ dialog[open]::backdrop { animation: fadeIn .3s ease; }
 /* 12. Grafo ------------------------------------------------------------- */
 .graph-box { position: relative; border: 1px solid var(--line); border-radius: var(--r); background: radial-gradient(ellipse at center, #18181b, var(--bg2)); overflow: hidden; height: min(78vh, 720px); }
 #graph { width: 100%; height: 100%; display: block; cursor: grab; }
+.gzoom { position: absolute; right: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 4; }
+.gzoom button { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line); background: rgba(13, 13, 14, .85); font: 600 18px/1 var(--sans); cursor: pointer; transition: background .2s, border-color .2s; }
+.gzoom button:hover { background: var(--red); border-color: var(--red); }
 #graph:active { cursor: grabbing; }
 #graph line { transition: stroke-opacity .2s; }
 .gnode { cursor: pointer; transition: opacity .2s; }
@@ -317,15 +323,18 @@ footer { border-top: 1px solid var(--line); margin-top: 60px; padding: 30px 0 50
 main, footer { transition: opacity .2s ease, filter .2s ease; }
 body.lang-fade main, body.lang-fade footer { opacity: 0; filter: blur(2px); }
 
+/* Animaciones infinitas en pausa cuando su bloque no está en pantalla (ver initOffscreenPause) */
+.paused, .paused *, .paused *::before, .paused *::after, .paused::before, .paused::after { animation-play-state: paused !important; }
+
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 @keyframes fadeIn { from { opacity: 0; } }
 @keyframes modalIn { from { opacity: 0; transform: translateY(24px) scale(.97); } }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes cogIn { from { opacity: 0; transform: scale(.7) rotate(-40deg); } }
-@keyframes pulseGlow { 50% { filter: drop-shadow(0 0 70px rgba(196, 22, 28, .55)); } }
+@keyframes glowPulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
 @keyframes glow { to { opacity: .75; } }
 @keyframes sheen { 0%, 100% { background-position: 100% 0; } 50% { background-position: 0 0; } }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 10px transparent; } }
+@keyframes pulse { 0% { transform: scale(1); opacity: .8; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes pop { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: none; } }
 @keyframes kenburns { from { transform: scale(1.12); } to { transform: scale(1); } }
@@ -346,7 +355,7 @@ body.lang-fade main, body.lang-fade footer { opacity: 0; filter: blur(2px); }
 /* 16. Responsive -------------------------------------------------------- */
 @media (max-width: 900px) {
   .hero .wrap { grid-template-columns: minmax(0, 1fr); }
-  .cog { max-width: 240px; order: -1; }
+  .cog-wrap { max-width: 240px; order: -1; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .primer, .route { grid-template-columns: minmax(0, 1fr); }
   .game { grid-template-columns: minmax(0, 1fr); }

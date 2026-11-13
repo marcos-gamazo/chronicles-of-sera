@@ -21,6 +21,8 @@ const ANCHORS = {
 };
 
 let sim = null;
+let zoom = null;
+let zoomTarget = null;
 let positions = new Map(); // conserva posiciones al cambiar de idioma
 
 function renderLegend() {
@@ -48,7 +50,19 @@ export function renderGraph() {
   CHARACTERS.forEach((c) => defs.append("clipPath").attr("id", `cp-${c.id}`).append("circle").attr("r", radius(c.id)));
 
   const root = svg.append("g");
-  svg.call(d3.zoom().scaleExtent([.3, 3]).on("zoom", (e) => root.attr("transform", e.transform)));
+  // El zoom no debe secuestrar el scroll de la página:
+  // - rueda: solo con Ctrl/⌘ (o el gesto de pellizco del trackpad, que llega como ctrl+wheel)
+  // - táctil: solo con dos dedos; un dedo desplaza la página
+  // - ratón: arrastrar el fondo mueve el grafo
+  zoom = d3.zoom().scaleExtent([.3, 3])
+    .filter((e) => {
+      if (e.type === "wheel") return e.ctrlKey || e.metaKey;
+      if (e.type.startsWith("touch")) return e.touches?.length > 1;
+      return !e.button;
+    })
+    .on("zoom", (e) => root.attr("transform", e.transform));
+  svg.call(zoom).style("touch-action", "pan-x pan-y");
+  zoomTarget = svg;
 
   const nodes = CHARACTERS.map((c) => ({ id: c.id, c, ...(positions.get(c.id) || {}) }));
   const links = LINKS.map(([source, target, ty]) => ({ source, target, ty }));
@@ -73,7 +87,9 @@ export function renderGraph() {
     .attr("stroke-dasharray", (d) => LINK_TYPES[d.ty].dash || null);
 
   const node = root.append("g").selectAll("g").data(nodes).join("g").attr("class", "gnode")
-    .call(d3.drag()
+    // Arrastrar nodos solo con ratón: en táctil el dedo debe desplazar la página
+    // (un toque sigue abriendo la ficha).
+    .call(d3.drag().touchable(() => false)
       .on("start", (e, d) => { if (!e.active) sim.alphaTarget(.3).restart(); d.fx = d.x; d.fy = d.y; })
       .on("drag", (e, d) => { d.fx = e.x; d.fy = e.y; })
       .on("end", (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
@@ -143,6 +159,14 @@ export function renderGraph() {
 }
 
 export function initGraph() {
+  $("#gzoom").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b || !zoom || !zoomTarget) return;
+    const t = zoomTarget.transition().duration(300);
+    if (b.dataset.z === "in") zoom.scaleBy(t, 1.3);
+    else if (b.dataset.z === "out") zoom.scaleBy(t, 1 / 1.3);
+    else zoom.transform(t, d3.zoomIdentity);
+  });
   $("#glegend").addEventListener("click", (e) => {
     const b = e.target.closest(".chip");
     if (!b) return;
